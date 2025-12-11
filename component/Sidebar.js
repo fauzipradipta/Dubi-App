@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -7,35 +7,60 @@ import {
   Animated,
   Dimensions,
 } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-handler';
 
+const { width } = Dimensions.get('window');
+const SIDEBAR_WIDTH = width * 0.7;
 
-const {width} = Dimensions.get('window');
-const SIDEBAR_WIDTH = width * 0.75;
+const CustomSidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const translateX = new Animated.Value(-SIDEBAR_WIDTH);
 
-export default Sidebar = () => { 
-    const [isOpen, setIsOpen] = React.useState(false);
-    const translateX = React.useRef(new Animated.Value(-SIDEBAR_WIDTH)).current;
-    return(
-        <GestureHandlerRootView style={{flex: 1}}>
-            <View >
-                <View>
-                    <TouchableOpacity onPress={openSidebar}>
-                        <Text>☰</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+  const openSidebar = () => {
+    Animated.timing(translateX, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+    setIsOpen(true);
+  };
 
-            {isOpen &&(
-                <TouchableOpacity
-                    style={styles.overlay}
-                    onPress={closeSidebar}
-                    activeOpacity={1}
-                />)
-            }
+  const closeSidebar = () => {
+    Animated.timing(translateX, {
+      toValue: -SIDEBAR_WIDTH,
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+    setIsOpen(false);
+  };
 
-           <PanGestureHandler onGestureEvent={onGestureEvent}>
-                 <Animated.View
+  const onGestureEvent = Animated.event(
+    [{ nativeEvent: { translationX: translateX } }],
+    { useNativeDriver: true }
+  );
+
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <View style={styles.container}>
+        {/* Main Content */}
+        <View style={styles.mainContent}>
+          <TouchableOpacity onPress={openSidebar} style={styles.menuButton}>
+            <Text>☰</Text>
+          </TouchableOpacity>
+          <Text>Main Content</Text>
+        </View>
+
+        {isOpen && (
+          <TouchableOpacity
+            style={styles.overlay}
+            onPress={closeSidebar}
+            activeOpacity={1}
+          />
+        )}
+
+        {/* Sidebar */}
+        <PanGestureHandler onGestureEvent={onGestureEvent}>
+          <Animated.View
             style={[
               styles.sidebar,
               {
@@ -45,32 +70,29 @@ export default Sidebar = () => {
           >
             <View style={styles.sidebarHeader}>
               <Text style={styles.sidebarTitle}>Menu</Text>
-            <TouchableOpacity onPress={closeSidebar}>
+              <TouchableOpacity onPress={closeSidebar}>
                 <Text style={styles.closeButton}>✕</Text>
-            </TouchableOpacity>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.menuItem}>
-                <Text>Home</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuItem}>
-                <Text>Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuItem}>
-                <Text>Settings</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuItem}>
-                <Text>Logout</Text>
-            </TouchableOpacity>
-            </Animated.View>
 
-           </PanGestureHandler>
-
-
-        </GestureHandlerRootView>
-    
-    
-    );
-}
+            <TouchableOpacity style={styles.menuItem}>
+              <Text>Home</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.menuItem}>
+              <Text>Profile</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.menuItem}>
+              <Text>Settings</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.menuItem}>
+              <Text>Logout</Text>
+            </TouchableOpacity>
+          </Animated.View>
+        </PanGestureHandler>
+      </View>
+    </GestureHandlerRootView>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -128,3 +150,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.3)',
   },
 });
+
+export default CustomSidebar;
