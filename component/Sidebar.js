@@ -38,7 +38,6 @@ const CustomSidebar = () => {
           <TouchableOpacity onPress={openSidebar} style={styles.menuButton}>
             <Text style={styles.menuIcon}>☰</Text>
           </TouchableOpacity>
-          <Text style={styles.appTitle}>My Application</Text>
         </View>
 
       </SafeAreaView>
