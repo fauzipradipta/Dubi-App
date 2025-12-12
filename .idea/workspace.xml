@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="10ddca5c-4b2c-4b51-b1c1-c8ec1bfb7a7f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bugreport-sdk_gphone64_x86_64-ZP11.251121.011-2025-12-10-20-16-57.zip" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/component/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/component/Sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-    </list>
+    <list default="true" id="10ddca5c-4b2c-4b51-b1c1-c8ec1bfb7a7f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
