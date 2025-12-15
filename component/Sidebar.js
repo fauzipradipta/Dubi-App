@@ -9,10 +9,12 @@ import {
   StatusBar,
 } from 'react-native';
 
+import  MenuItem  from '../mock/MenuItem';
+
 const { width } = Dimensions.get('window');
 const SIDEBAR_WIDTH = width * 0.7;
 
-const CustomSidebar = () => {
+const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const translateX = useRef(new Animated.Value(-SIDEBAR_WIDTH)).current;
 
@@ -62,35 +64,26 @@ const CustomSidebar = () => {
       <Animated.View
         style={[
           styles.sidebar,
-          { transform: [{ translateX }] },
+          { transform: [{ translateX }],
+        },
         ]}
       >
-        <View style={styles.sidebarHeader}>
-          <Text style={styles.sidebarTitle}>Menu</Text>
-          <TouchableOpacity onPress={closeSidebar}>
-            <Text style={styles.closeButton}>✕</Text>
-          </TouchableOpacity>
-        </View>
 
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Home</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Profile</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Settings</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Logout</Text>
-        </TouchableOpacity>
+        {
+          MenuItem && MenuItem.map((item) => (
+            <TouchableOpacity key={item.id} style={styles.menuItem}>
+              <View style={styles.iconContainer}>
+                {item.icon}
+              </View>
+              <Text style={styles.menuText}>{item.title}</Text>
+            </TouchableOpacity>
+          ))
+        }
       </Animated.View>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -117,8 +110,9 @@ const styles = StyleSheet.create({
   
   menuButton: {
     padding: 10,
+    top: 30,
     borderRadius: 5,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: 'transparent',
   },
   
   menuIcon: {
@@ -135,7 +129,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: SIDEBAR_WIDTH,
     backgroundColor: 'white',
-    paddingTop: 160, 
+    paddingTop: 60, 
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 0 },
     shadowOpacity: 0.25,
@@ -154,33 +148,23 @@ const styles = StyleSheet.create({
     borderBottomColor: '#eee',
   },
   
-  sidebarTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  
-  closeButton: {
-    fontSize: 24,
-    color: '#666',
-    fontWeight: 'bold',
-  },
-  
   menuItem: {
     padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#f0f0f0',
+    paddingTop:50,
   },
   
   menuText: {
-    fontSize: 17,
-    color: '#333',
+    fontSize: 20,
+    color: '#000',
   },
   
   
   overlay: {
     position: 'absolute',
-    top: 60, 
+    paddingTop: 90,
+    top: 90, 
     left: 0,
     right: 0,
     bottom: 0,
@@ -189,4 +173,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomSidebar;
+export default Sidebar;
