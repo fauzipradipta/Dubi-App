@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Animated,
   Dimensions,
-  SafeAreaView,
   StatusBar,
 } from 'react-native';
 
@@ -25,22 +24,30 @@ const CustomSidebar = () => {
     }).start();
   }, [isOpen]);
 
-  const openSidebar = () => setIsOpen(true);
-  const closeSidebar = () => setIsOpen(false);
+  const openSidebar = () => {
+    console.log('Opening sidebar...');
+    setIsOpen(true);
+  };
+
+  const closeSidebar = () => {
+    console.log('Closing sidebar...');
+    setIsOpen(false);
+  };
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={styles.safeArea}>
-        
-        
-        <View style={styles.header}>
-          <TouchableOpacity onPress={openSidebar} style={styles.menuButton}>
-            <Text style={styles.menuIcon}>☰</Text>
-          </TouchableOpacity>
-        </View>
-
-      </SafeAreaView>
+      
+     
+      <View style={styles.header}>
+        <TouchableOpacity 
+          onPress={openSidebar} 
+          style={styles.menuButton}
+          activeOpacity={0.7}
+        >
+          <Text style={styles.menuIcon}>☰</Text>
+        </TouchableOpacity>
+      </View>
 
       
       {isOpen && (
@@ -51,6 +58,7 @@ const CustomSidebar = () => {
         />
       )}
 
+      
       <Animated.View
         style={[
           styles.sidebar,
@@ -65,16 +73,19 @@ const CustomSidebar = () => {
         </View>
 
         <TouchableOpacity style={styles.menuItem}>
-          <Text>Home</Text>
+          <Text style={styles.menuText}>Home</Text>
         </TouchableOpacity>
+        
         <TouchableOpacity style={styles.menuItem}>
-          <Text>Profile</Text>
+          <Text style={styles.menuText}>Profile</Text>
         </TouchableOpacity>
+        
         <TouchableOpacity style={styles.menuItem}>
-          <Text>Settings</Text>
+          <Text style={styles.menuText}>Settings</Text>
         </TouchableOpacity>
+        
         <TouchableOpacity style={styles.menuItem}>
-          <Text>Logout</Text>
+          <Text style={styles.menuText}>Logout</Text>
         </TouchableOpacity>
       </Animated.View>
     </View>
@@ -86,55 +97,37 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
-  safeArea: {
-    flex: 1,
-  },
- 
+  
+
   header: {
+    height: 140,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingVertical: 15,
     backgroundColor: 'white',
     borderBottomWidth: 1,
     borderBottomColor: '#e0e0e0',
-    elevation: 2,
+    elevation: 3,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
-    shadowRadius: 2,
+    shadowRadius: 3,
+    zIndex: 1001,
   },
+  
   menuButton: {
-    padding: 8,
+    padding: 10,
+    borderRadius: 5,
+    backgroundColor: '#f0f0f0',
   },
+  
   menuIcon: {
-    fontSize: 28, // Larger icon
+    fontSize: 28,
     color: '#333',
-  },
-  appTitle: {
-    fontSize: 20,
     fontWeight: 'bold',
-    marginLeft: 15,
-    flex: 1,
   },
-  mainContent: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  welcome: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#333',
-    textAlign: 'center',
-  },
-  instruction: {
-    fontSize: 16,
-    color: '#666',
-    textAlign: 'center',
-  },
+  
+ 
   sidebar: {
     position: 'absolute',
     left: 0,
@@ -142,14 +135,15 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: SIDEBAR_WIDTH,
     backgroundColor: 'white',
-    paddingTop: 50,
+    paddingTop: 160, 
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 0 },
     shadowOpacity: 0.25,
-    shadowRadius: 5,
-    elevation: 5,
+    shadowRadius: 10,
+    elevation: 20,
     zIndex: 1000,
   },
+  
   sidebarHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -159,26 +153,39 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
   },
+  
   sidebarTitle: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
+    color: '#333',
   },
+  
   closeButton: {
     fontSize: 24,
+    color: '#666',
+    fontWeight: 'bold',
   },
+  
   menuItem: {
     padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: '#f0f0f0',
   },
+  
+  menuText: {
+    fontSize: 17,
+    color: '#333',
+  },
+  
+  
   overlay: {
     position: 'absolute',
-    top: 0,
+    top: 60, 
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    zIndex: 999,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    zIndex: 999, 
   },
 });
 
