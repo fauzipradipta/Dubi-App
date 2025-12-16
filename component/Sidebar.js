@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,106 +6,122 @@ import {
   TouchableOpacity,
   Animated,
   Dimensions,
+  StatusBar,
 } from 'react-native';
-import { GestureHandlerRootView, PanGestureHandler } from 'react-native-gesture-handler';
+
+import  MenuItem  from '../mock/MenuItem';
 
 const { width } = Dimensions.get('window');
-const SIDEBAR_WIDTH = width * 0.7;
+const SIDEBAR_WIDTH = width * 0.5;
 
-const CustomSidebar = () => {
+const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const translateX = new Animated.Value(-SIDEBAR_WIDTH);
+  const translateX = useRef(new Animated.Value(-SIDEBAR_WIDTH)).current;
 
-  const openSidebar = () => {
+  useEffect(() => {
     Animated.timing(translateX, {
-      toValue: 0,
+      toValue: isOpen ? 0 : -SIDEBAR_WIDTH,
       duration: 300,
       useNativeDriver: true,
     }).start();
+  }, [isOpen]);
+
+  const openSidebar = () => {
+    console.log('Opening sidebar...');
     setIsOpen(true);
   };
 
   const closeSidebar = () => {
-    Animated.timing(translateX, {
-      toValue: -SIDEBAR_WIDTH,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
+    console.log('Closing sidebar...');
     setIsOpen(false);
   };
 
-  const onGestureEvent = Animated.event(
-    [{ nativeEvent: { translationX: translateX } }],
-    { useNativeDriver: true }
-  );
-
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <View style={styles.container}>
-        {/* Main Content */}
-        <View style={styles.mainContent}>
-          <TouchableOpacity onPress={openSidebar} style={styles.menuButton}>
-            <Text>☰</Text>
-          </TouchableOpacity>
-          <Text>Main Content</Text>
-        </View>
-
-        {isOpen && (
-          <TouchableOpacity
-            style={styles.overlay}
-            onPress={closeSidebar}
-            activeOpacity={1}
-          />
-        )}
-
-        {/* Sidebar */}
-        <PanGestureHandler onGestureEvent={onGestureEvent}>
-          <Animated.View
-            style={[
-              styles.sidebar,
-              {
-                transform: [{ translateX }],
-              },
-            ]}
-          >
-            <View style={styles.sidebarHeader}>
-              <Text style={styles.sidebarTitle}>Menu</Text>
-              <TouchableOpacity onPress={closeSidebar}>
-                <Text style={styles.closeButton}>✕</Text>
-              </TouchableOpacity>
-            </View>
-
-            <TouchableOpacity style={styles.menuItem}>
-              <Text>Home</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuItem}>
-              <Text>Profile</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuItem}>
-              <Text>Settings</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.menuItem}>
-              <Text>Logout</Text>
-            </TouchableOpacity>
-          </Animated.View>
-        </PanGestureHandler>
+    <View style={styles.container}>
+      <StatusBar barStyle="dark-content" />
+      
+     
+      <View style={styles.header}>
+        <TouchableOpacity 
+          onPress={openSidebar} 
+          style={styles.menuButton}
+          activeOpacity={0.7}
+        >
+          <Text style={styles.menuIcon}>☰</Text>
+        </TouchableOpacity>
       </View>
-    </GestureHandlerRootView>
+
+      
+      {isOpen && (
+        <TouchableOpacity
+          style={styles.overlay}
+          onPress={closeSidebar}
+          activeOpacity={1}
+        />
+      )}
+
+      
+      <Animated.View
+        style={[
+          styles.sidebar,
+          { transform: [{ translateX }],
+        },
+        ]}
+      >
+
+        {
+          MenuItem && MenuItem.map((item) => (
+            <TouchableOpacity key={item.id} style={styles.menuItem}>
+              <View style={styles.iconContainer}>
+                {item.icon}
+              </View>
+              <Text style={styles.menuText}>{item.title}</Text>
+            </TouchableOpacity>
+          ))
+        }
+      </Animated.View>
+    </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f5f5f5',
   },
-  mainContent: {
-    flex: 1,
-    padding: 20,
-    paddingTop: 50,
+  
+ 
+  header: {
+    height: 140,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    backgroundColor: 'white',
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    zIndex: 1001,
   },
+  
   menuButton: {
     padding: 10,
+    top: 30,
+    borderRadius: 5,
+    backgroundColor: 'transparent',
   },
+  
+  menuIcon: {
+    fontSize: 28,
+    color: '#333',
+    fontWeight: 'bold',
+  },
+  
+ 
   sidebar: {
     position: 'absolute',
     left: 0,
@@ -113,13 +129,15 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: SIDEBAR_WIDTH,
     backgroundColor: 'white',
-    paddingTop: 50,
+    paddingTop: 60, 
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 0 },
     shadowOpacity: 0.25,
-    shadowRadius: 5,
-    elevation: 5,
+    shadowRadius: 10,
+    elevation: 20,
+    zIndex: 1000,
   },
+  
   sidebarHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -129,26 +147,41 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
   },
-  sidebarTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
+
+   iconContainer:{
+    width:24,
+    height:24,
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center',
+    marginRight:15,
+
   },
-  closeButton: {
-    fontSize: 24,
-  },
+
   menuItem: {
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 18,
+    paddingHorizontal:15,
+    top:150
   },
+  
+  menuText: {
+    fontSize: 18,
+    color: '#000',
+    flex: 1,
+  },
+  
   overlay: {
     position: 'absolute',
-    top: 0,
+    paddingTop: 90,
+    top: 90, 
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    zIndex: 999, 
   },
 });
 
-export default CustomSidebar;
+export default Sidebar;
