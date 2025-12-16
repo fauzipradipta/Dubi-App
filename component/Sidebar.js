@@ -12,7 +12,7 @@ import {
 import  MenuItem  from '../mock/MenuItem';
 
 const { width } = Dimensions.get('window');
-const SIDEBAR_WIDTH = width * 0.7;
+const SIDEBAR_WIDTH = width * 0.5;
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f5f5f5',
   },
   
-
+ 
   header: {
     height: 140,
     flexDirection: 'row',
@@ -147,19 +147,30 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
   },
-  
+
+   iconContainer:{
+    width:24,
+    height:24,
+    flexDirection:'row',
+    justifyContent:'center',
+    alignItems:'center',
+    marginRight:15,
+
+  },
+
   menuItem: {
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: '#f0f0f0',
-    paddingTop:50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: 18,
+    paddingHorizontal:15,
+    top:150
   },
   
   menuText: {
-    fontSize: 20,
+    fontSize: 18,
     color: '#000',
+    flex: 1,
   },
-  
   
   overlay: {
     position: 'absolute',
