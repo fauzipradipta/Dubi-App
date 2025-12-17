@@ -9,7 +9,7 @@ import {
   StatusBar,
 } from 'react-native';
 
-import  MenuItem  from '../mock/MenuItem';
+import MenuItem from '../data/MenuItem';
 
 const { width } = Dimensions.get('window');
 const SIDEBAR_WIDTH = width * 0.5;
