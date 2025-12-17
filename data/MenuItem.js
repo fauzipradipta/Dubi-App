@@ -103,7 +103,7 @@ const MenuItem = [
         title: 'Tools', 
         icon: (
                <SVG
-                    width={30}
+                    width={35}
                     height={30}
                     viewBox="0 0 35 30"
                     fill="none"

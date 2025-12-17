@@ -1,21 +1,75 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView } from 'react-native';
-import React, { useState } from 'react';
-import Sidebar from './component/Sidebar'
-export default function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Sidebar from './component/Sidebar';
 
+const Stack = createNativeStackNavigator();
+
+function HomeScreen() {
+  return (
+    <Sidebar />
+  );
+}
+
+function ProfileScreen() {
   return (
     <View style={styles.container}>
-        <View style={styles.mainContent}>
-          <Text style={styles.title}>My App</Text>
-        </View> 
-        <Sidebar
-            isOpen={sidebarOpen}
-            onClose={() => setSidebarOpen(false)}  
-          />
-      <StatusBar style="auto" />
+      <Text style={styles.title}>Profile Screen</Text>
     </View>
+  );
+}
+
+function TrackersScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Trackers Screen</Text>
+    </View>
+  );
+}
+
+function FlowChartScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Flow Chart Screen</Text>
+    </View>
+  );
+}
+
+function GoalsScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Goals Screen</Text>
+    </View>
+  );
+}
+
+function ToolsScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Tools Screen</Text>
+    </View>
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false
+        }}
+      >
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
+        <Stack.Screen name="Trackers" component={TrackersScreen} />
+        <Stack.Screen name="Flow Chart" component={FlowChartScreen} />
+        <Stack.Screen name="Goals" component={GoalsScreen} />
+        <Stack.Screen name="Tools" component={ToolsScreen} />
+      </Stack.Navigator>
+      <StatusBar style="auto" />
+    </NavigationContainer>
   );
 }
 
@@ -23,54 +77,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
-  },
-  safeArea: {
-    flex: 1,
-  },
-  header: {
-    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    backgroundColor: 'white',
-    borderBottomWidth: 1,
-    borderBottomColor: '#e0e0e0',
-  },
-  menuButton: {
-    padding: 10,
-    backgroundColor: '#f0f0f0',
-    borderRadius: 5,
-  },
-  menuIcon: {
-    fontSize: 16,
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
-    marginLeft: 20,
-    flex: 1,
-  },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  welcome: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 30,
-  },
-  button: {
-    backgroundColor: '#4a90e2',
-    padding: 15,
-    borderRadius: 8,
-    minWidth: 200,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 18,
     fontWeight: 'bold',
   },
 });

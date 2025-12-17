@@ -10,11 +10,14 @@ import {
 } from 'react-native';
 
 import MenuItem from '../data/MenuItem';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 const SIDEBAR_WIDTH = width * 0.5;
 
 const Sidebar = () => {
+  const navigation = useNavigation();
+
   const [isOpen, setIsOpen] = useState(false);
   const translateX = useRef(new Animated.Value(-SIDEBAR_WIDTH)).current;
 
@@ -34,6 +37,11 @@ const Sidebar = () => {
   const closeSidebar = () => {
     console.log('Closing sidebar...');
     setIsOpen(false);
+  };
+
+   const handleMenuItemPress = (screenName) => {
+    navigation.navigate(screenName); 
+    closeSidebar(); 
   };
 
   return (
@@ -71,7 +79,11 @@ const Sidebar = () => {
 
         {
           MenuItem && MenuItem.map((item) => (
-            <TouchableOpacity key={item.id} style={styles.menuItem}>
+            <TouchableOpacity 
+              key={item.id} 
+              style={styles.menuItem} 
+              onPress={() => handleMenuItemPress(item.title)}
+            >
               <View style={styles.iconContainer}>
                 {item.icon}
               </View>
