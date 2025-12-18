@@ -3,15 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Sidebar from './component/Sidebar';
-
+import Tools from './page/Tools';
+import Home from './page/Home';
 const Stack = createNativeStackNavigator();
-
-function HomeScreen() {
-  return (
-    <Sidebar />
-  );
-}
 
 function ProfileScreen() {
   return (
@@ -45,14 +39,6 @@ function GoalsScreen() {
   );
 }
 
-function ToolsScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tools Screen</Text>
-    </View>
-  );
-}
-
 export default function App() {
   return (
     <NavigationContainer>
@@ -61,12 +47,12 @@ export default function App() {
           headerShown: false
         }}
       >
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Profile" component={ProfileScreen} />
         <Stack.Screen name="Trackers" component={TrackersScreen} />
         <Stack.Screen name="Flow Chart" component={FlowChartScreen} />
         <Stack.Screen name="Goals" component={GoalsScreen} />
-        <Stack.Screen name="Tools" component={ToolsScreen} />
+        <Stack.Screen name="Tools" component={Tools} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>

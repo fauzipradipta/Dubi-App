@@ -39,19 +39,18 @@ const Sidebar = () => {
     setIsOpen(false);
   };
 
-   const handleMenuItemPress = (screenName) => {
-    navigation.navigate(screenName); 
-    closeSidebar(); 
+  const handleMenuItemPress = (screenName) => {
+    navigation.navigate(screenName);
+    closeSidebar();
   };
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <StatusBar barStyle="dark-content" />
-      
-     
+
       <View style={styles.header}>
-        <TouchableOpacity 
-          onPress={openSidebar} 
+        <TouchableOpacity
+          onPress={openSidebar}
           style={styles.menuButton}
           activeOpacity={0.7}
         >
@@ -59,7 +58,6 @@ const Sidebar = () => {
         </TouchableOpacity>
       </View>
 
-      
       {isOpen && (
         <TouchableOpacity
           style={styles.overlay}
@@ -68,29 +66,26 @@ const Sidebar = () => {
         />
       )}
 
-      
       <Animated.View
         style={[
           styles.sidebar,
-          { transform: [{ translateX }],
-        },
+          {
+            transform: [{ translateX }],
+          },
         ]}
       >
-
-        {
-          MenuItem && MenuItem.map((item) => (
-            <TouchableOpacity 
-              key={item.id} 
-              style={styles.menuItem} 
-              onPress={() => handleMenuItemPress(item.title)}
-            >
-              <View style={styles.iconContainer}>
-                {item.icon}
-              </View>
-              <Text style={styles.menuText}>{item.title}</Text>
-            </TouchableOpacity>
-          ))
-        }
+        {MenuItem && MenuItem.map((item) => (
+          <TouchableOpacity
+            key={item.id}
+            style={styles.menuItem}
+            onPress={() => handleMenuItemPress(item.title)}
+          >
+            <View style={styles.iconContainer}>
+              {item.icon}
+            </View>
+            <Text style={styles.menuText}>{item.title}</Text>
+          </TouchableOpacity>
+        ))}
       </Animated.View>
     </View>
   );
@@ -102,10 +97,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f5f5f5',
   },
-  
- 
+
+
   header: {
-    height: 140,
+    height: 100,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 20,
@@ -118,22 +113,22 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3,
     zIndex: 1001,
+    paddingTop: 35,
   },
-  
+
   menuButton: {
-    padding: 10,
-    top: 30,
+    padding: 15,
     borderRadius: 5,
     backgroundColor: 'transparent',
   },
-  
+
   menuIcon: {
     fontSize: 28,
     color: '#333',
     fontWeight: 'bold',
   },
-  
- 
+
+
   sidebar: {
     position: 'absolute',
     left: 0,
@@ -141,7 +136,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: SIDEBAR_WIDTH,
     backgroundColor: 'white',
-    paddingTop: 60, 
+    paddingTop: 90,
     shadowColor: '#000',
     shadowOffset: { width: 2, height: 0 },
     shadowOpacity: 0.25,
@@ -149,7 +144,7 @@ const styles = StyleSheet.create({
     elevation: 20,
     zIndex: 1000,
   },
-  
+
   sidebarHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -160,13 +155,13 @@ const styles = StyleSheet.create({
     borderBottomColor: '#eee',
   },
 
-   iconContainer:{
-    width:24,
-    height:24,
-    flexDirection:'row',
-    justifyContent:'center',
-    alignItems:'center',
-    marginRight:15,
+  iconContainer: {
+    width: 24,
+    height: 24,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 15,
 
   },
 
@@ -174,25 +169,24 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 18,
-    paddingHorizontal:15,
-    top:150
+    paddingHorizontal: 15,
+    top: 0
   },
-  
+
   menuText: {
     fontSize: 18,
     color: '#000',
     flex: 1,
   },
-  
+
   overlay: {
     position: 'absolute',
-    paddingTop: 90,
-    top: 90, 
+    top: 100,
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0,0,0,0.4)',
-    zIndex: 999, 
+    backgroundColor: 'transparent',
+    zIndex: 999,
   },
 });
 
