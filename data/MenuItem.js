@@ -1,6 +1,20 @@
 import SVG,  { Mask, Path, G, Defs, Pattern, Use, Image,ClipPath,Rect } from "react-native-svg"
-// import tools from '../assets/Tools.svg';
-// import {Image} from 'react-native';
+
+ const Header =[
+    {
+       id:1, 
+       title:'Custom',
+
+    },
+    {
+        id:2, 
+        title: 'Favorites',
+    }, 
+    {
+        id:3, 
+        title: 'For You'
+    }
+]
 
 const MenuItem = [
     {   
