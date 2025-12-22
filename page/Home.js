@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-import Sidebar from '../component/Sidebar';
+import Sidebar from '../component/Sidebar/Sidebar';
 
 const Home = () => {
     return (
