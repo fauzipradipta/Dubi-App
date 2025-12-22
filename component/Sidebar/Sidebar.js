@@ -11,7 +11,7 @@ import {
 
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import MenuItem from '../../data/MenuItem';
+import { MenuItem } from '../../data/MenuItem';
 
 export default function CustomDrawerContent(props) {
   return (

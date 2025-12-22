@@ -1,6 +1,6 @@
 import SVG, { Mask, Path, G, Defs, Pattern, Use, Image, ClipPath, Rect } from "react-native-svg"
 
-const Header = [
+export const Header = [
     {
         id: 1,
         title: 'Custom',
@@ -16,7 +16,7 @@ const Header = [
     }
 ]
 
-const MenuItem = [
+export const MenuItem = [
     {
         id: 1,
         title: 'Home',
@@ -153,4 +153,3 @@ const MenuItem = [
     }
 ];
 
-export default { MenuItem, Header };

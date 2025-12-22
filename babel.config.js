@@ -10,8 +10,7 @@
 module.exports = {
   presets: ['babel-preset-expo'],
   plugins: [
-    // Ensure you have only ONE of these, not both
     'react-native-reanimated/plugin',
-    // Remove or comment out: 'react-native-worklets/plugin'
+
   ],
 };
