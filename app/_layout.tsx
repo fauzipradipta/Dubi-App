@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 export default function RootLayout() {
 
   const [text, setText] = React.useState('');
@@ -70,8 +70,6 @@ export default function RootLayout() {
         onChangeText={setText}
       />
 
-      
-
       <TouchableOpacity
         style={{
           width: '80%',
@@ -89,6 +87,108 @@ export default function RootLayout() {
           Continue
         </Text>
       </TouchableOpacity>
+
+      <View style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: '80%',
+        marginVertical: 24,
+      }}>
+        <View style={{ 
+          flex: 1,
+          height: 1,
+          backgroundColor: '#e0e0e0',
+        }}/>
+
+        <Text style={{  marginHorizontal: 16,
+          fontSize: 14,
+          color: '#666666',
+          fontWeight: '500',}}> Or</Text>
+
+        <View style={{ 
+          flex: 1,
+          height: 1,
+          backgroundColor: '#e0e0e0',
+        }}/>
+
+      </View>
+      
+      <TouchableOpacity
+        style={{
+          width: '80%',
+          height: 50,
+          backgroundColor: '#EEEEEE',
+          borderRadius: 8,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        onPress={() => {
+          // Handle continue action
+        }}
+      >
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Image 
+              source={require('../assets/images/google-icon.png')} 
+              style={{ width: 24, height: 24, marginRight: 12 }} 
+            />
+            <Text style={{ color: 'black', fontSize: 16, fontWeight: '600' }}>
+              Continue with Google
+            </Text>
+        </View>
+       
+      </TouchableOpacity>
+
+
+      <TouchableOpacity
+        style={{
+          width: '80%',
+          height: 50,
+          backgroundColor: '#EEEEEE',
+          borderRadius: 8,
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 16,
+        }}
+        onPress={() => {
+          // Handle continue action
+        }}
+      >
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <Image 
+              source={require('../assets/images/apple-icon.png')} 
+              style={{ width: 24, height: 24, marginRight: 12 }} 
+            />
+            <Text style={{ color: 'black', fontSize: 16, fontWeight: '600' }}>
+              Continue with Apple
+            </Text>
+        </View>
+       
+      </TouchableOpacity>
+      
+      <View>
+        <Text style={{ 
+          fontSize: 14, 
+          marginTop: 40,
+          color: '#000000',
+          fontWeight:'400'
+        }}>
+          By clicking continue, you agree to our Terms & Conditions
+        </Text>
+        
+      </View>
+      <View>
+         <Text style={{ 
+          fontSize: 14, 
+          // marginTop: 40,
+          color: '#000000',
+          justifyContent:'center',
+          alignItems:'center',
+          fontWeight:'400'
+        }}>
+          and Privacy Policy
+        </Text>
+      </View>
+
     </View>
   );
 }
