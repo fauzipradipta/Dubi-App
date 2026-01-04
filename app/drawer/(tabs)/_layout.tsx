@@ -4,7 +4,7 @@ export default function TabLayout(){
     return(
         <Tabs screenOptions={{
             headerTitle: '',
-            headerShown: false 
+            headerShown: false
         }}>
             <Tabs.Screen name="index" options={{title:'Home'}}/>
             <Tabs.Screen name="trackers" options={{title: "Trackers"}}/>
