@@ -13,7 +13,7 @@ export default function RootLayout() {
               contentStyle: { backgroundColor: 'white' }
                
           }}>      
-        <Stack.Screen name="screen/index" options={{ title: 'Dubi App', headerShown: false}} />
+        {/* <Stack.Screen name="screen/index" options={{ title: 'Dubi App', headerShown: false}} /> */}
         <Stack.Screen name="drawer" options={{ headerShown: false }} />      
         {/* <Stack.Screen name="drawer/(tabs)/tools" options={{ title: 'Tools', headerShown: true }} /> */}
         <Stack.Screen name="custom" options={{ title: 'Custom', headerShown: true }} />
