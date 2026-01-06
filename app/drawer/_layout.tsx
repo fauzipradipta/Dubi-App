@@ -4,7 +4,12 @@ export default function DrawerLayout() {
         <Drawer screenOptions={{
             headerTitle: '',
         }}>
-            <Drawer.Screen name="(tabs)" options={{ drawerLabel: 'Home', title: ' ', }} />
+            {/* <Drawer.Screen name="(tabs)" options={{ drawerLabel: 'Home', title: ' ', }} /> */}
+            <Drawer.Screen name="(tabs)"
+                options={{
+                    drawerLabel: 'Home',
+            }}
+            />
             <Drawer.Screen name="profile"
                 options={{
                     drawerLabel: 'Profile',

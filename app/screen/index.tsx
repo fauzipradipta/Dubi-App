@@ -6,7 +6,7 @@ export default function Index() {
    const [text, setText] = React.useState('');
 
    const handleSignup=()=>{
-    router.push('../drawer/(tabs)');
+    router.push('/drawer/(tabs)');
    }
     return(
           <View style={{ 
