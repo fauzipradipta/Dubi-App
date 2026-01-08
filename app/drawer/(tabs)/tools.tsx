@@ -1,7 +1,6 @@
-import EmotionWheel from '@/app/component/wheelofemotions';
-import { useFocusEffect, useNavigation } from 'expo-router';
+import { Link, useFocusEffect, useNavigation } from 'expo-router';
 import { useCallback } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 export default function ToolsScreen() {
 
@@ -38,11 +37,9 @@ export default function ToolsScreen() {
 
   return (
     <View>
-      <Text> Tools</Text>
+      <Link href="/component/modal"  > Wheel Of Emotion  </Link>
 
-      <EmotionWheel
-       
-      />
+      {/* <EmotionWheel/> */}
     </View>
   );
 }
