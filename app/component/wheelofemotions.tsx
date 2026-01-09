@@ -16,7 +16,8 @@ import Svg, {
 } from 'react-native-svg';
 
 const { width, height } = Dimensions.get('window');
-const SIZE = Math.min(width, height) * 0.9;
+// const SIZE = Math.min(width, height) * 0.9;
+const SIZE = Math.min(width, height) * 1.50;
 const CENTER = SIZE / 2;
 
 // Emotion data
@@ -126,10 +127,10 @@ export default function EmotionWheelScreen() {
                 index={catIdx * 3 + subIdx}
                 total={EMOTIONS.length * 3}
                 center={CENTER}
-                radius={CENTER * 0.95}
-                innerRadius={CENTER * 0.65}
+                radius={CENTER * 0.85}
+                innerRadius={CENTER * 0.55}
                 gradientId={`grad-${catIdx}`}
-                label={subLabel}
+                label={subLabel}  
               />
             ))
           )}
@@ -141,19 +142,19 @@ export default function EmotionWheelScreen() {
               index={index}
               total={EMOTIONS.length}
               center={CENTER}
-              radius={CENTER * 0.65}
-              innerRadius={CENTER * 0.35}
+              radius={CENTER * 0.55}
+              innerRadius={CENTER * 0.15}
               gradientId={`grad-${index}`}
               label={item.label}
             />
           ))}
 
           {/* Center */}
-          <Circle cx={CENTER} cy={CENTER} r={CENTER * 0.35} fill="white" />
+          <Circle cx={CENTER} cy={CENTER} r={CENTER * 0.15} fill="white" />
           <Circle
             cx={CENTER}
             cy={CENTER}
-            r={CENTER * 0.32}
+            r={CENTER * 0.12}
             fill="none"
             stroke="#eee"
             strokeWidth="1"
@@ -162,7 +163,8 @@ export default function EmotionWheelScreen() {
             x={CENTER}
             y={CENTER + 6}
             textAnchor="middle"
-            fontSize={CENTER * 0.12}
+            // fontSize={CENTER * 0.12}
+            fontSize={"12px"}
             fontWeight="bold"
             fill="#666"
           >
@@ -185,7 +187,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 15,
     fontWeight: '700',
     color: '#333',
   },
@@ -193,5 +195,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding:20,
+    marginEnd:345,
   },
 });
