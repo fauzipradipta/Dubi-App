@@ -1,6 +1,8 @@
 import React from 'react';
 import {
+  Animated,
   Dimensions,
+  Easing,
   SafeAreaView,
   StyleSheet,
   View
@@ -15,11 +17,14 @@ import Svg, {
   Text as SvgText,
 } from 'react-native-svg';
 
+
+
 const { width, height } = Dimensions.get('window');
 // const SIZE = Math.min(width, height) * 0.9;
 const SIZE = Math.min(width, height) * 1.50;
 const CENTER = SIZE / 2;
 
+const AnimatedG = Animated.createAnimatedComponent(G);
 // Emotion data
 const EMOTIONS = [
   { label: 'Anger', color: '#E91E63', sub: ['Hurt', 'Threatened', 'Hateful'] },
@@ -92,11 +97,26 @@ const Segment = ({
 
 // Main Screen
 export default function EmotionWheelScreen() {
+  const spinValue = React.useRef(new Animated.Value(0)).current;
+
+  const spin = () => {
+    spinValue.setValue(0);
+
+    Animated.timing(spinValue, {
+      toValue: 1,
+      duration: 3000,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const spinInterpolation = spinValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0deg', '1080deg'], // 3 full spins
+  });
   return (
     <SafeAreaView style={styles.container}>
-      {/* <View style={styles.header}>
-        <Text style={styles.title}>Wheel of Emotions</Text>
-      </View> */}
+      
 
       <View style={styles.wheelContainer}>
         <Svg width={SIZE} height={SIZE} viewBox={`0 0 ${SIZE} ${SIZE}`}>
@@ -118,84 +138,115 @@ export default function EmotionWheelScreen() {
               </RadialGradient>
             ))}
           </Defs>
-
-          {/* Outer Ring */}
-          {EMOTIONS.flatMap((category, catIdx) =>
-            category.sub.map((subLabel, subIdx) => (
-              <Segment
-                key={`outer-${catIdx}-${subIdx}`}
-                index={catIdx * 3 + subIdx}
-                total={EMOTIONS.length * 3}
-                center={CENTER}
-                radius={CENTER * 0.85}
-                innerRadius={CENTER * 0.55}
-                gradientId={`grad-${catIdx}`}
-                label={subLabel}  
-              />
-            ))
-          )}
-
-          {/* Middle Ring */}
-          {EMOTIONS.map((item, index) => (
-            <Segment
-              key={`middle-${index}`}
-              index={index}
-              total={EMOTIONS.length}
-              center={CENTER}
-              radius={CENTER * 0.55}
-              innerRadius={CENTER * 0.15}
-              gradientId={`grad-${index}`}
-              label={item.label}
-            />
-          ))}
-
-          {/* Center */}
-          <Circle cx={CENTER} cy={CENTER} r={CENTER * 0.15} fill="white" />
-          <Circle
-            cx={CENTER}
-            cy={CENTER}
-            r={CENTER * 0.12}
-            fill="none"
-            stroke="#eee"
-            strokeWidth="1"
-          />
-          <SvgText
-            x={CENTER}
-            y={CENTER + 6}
-            textAnchor="middle"
-            // fontSize={CENTER * 0.12}
-            fontSize={"12px"}
-            fontWeight="bold"
-            fill="#666"
+          <AnimatedG
+            style={{
+              transform: [
+                {
+                  rotate: spinInterpolation,
+                },
+              ],
+              originX: CENTER,
+              originY: CENTER,
+            }}
           >
-            I'm Feeling
-          </SvgText>
+
+            {/* Outer Ring */}
+            {EMOTIONS.flatMap((category, catIdx) =>
+              category.sub.map((subLabel, subIdx) => (
+                <Segment
+                  key={`outer-${catIdx}-${subIdx}`}
+                  index={catIdx * 3 + subIdx}
+                  total={EMOTIONS.length * 3}
+                  center={CENTER}
+                  radius={CENTER * 0.95}
+                  innerRadius={CENTER * 0.55}
+                  gradientId={`grad-${catIdx}`}
+                  label={subLabel}  
+                />
+              ))
+            )}
+
+            {/* Middle Ring */}
+            {EMOTIONS.map((item, index) => (
+              <Segment
+                key={`middle-${index}`}
+                index={index}
+                total={EMOTIONS.length}
+                center={CENTER}
+                radius={CENTER * 0.55}
+                innerRadius={CENTER * 0.25}
+                gradientId={`grad-${index}`}
+                label={item.label}
+                fontSize={CENTER * 0.08}
+              />
+            ))}
+
+            {/* Center */}
+            <Circle cx={CENTER} cy={CENTER} r={CENTER * 0.15} fill="white" />
+            <Circle
+              cx={CENTER}
+              cy={CENTER}
+              r={CENTER * 0.25}
+              fill="none"
+              stroke="#eee"
+              strokeWidth="1"
+            />
+            <SvgText
+              x={CENTER}
+              y={CENTER - CENTER * 0.02}
+              textAnchor="middle"
+              fontSize={CENTER * 0.08}
+              fill="#666"
+              onPress={spin}
+            >
+              I'm 
+            </SvgText>
+            <SvgText
+              x={CENTER}
+              y={CENTER + CENTER * 0.06}
+              textAnchor="middle"
+              fontSize={CENTER * 0.08}
+              fill="#666"
+            >
+              Feeling
+            </SvgText>
+          </AnimatedG>
         </Svg>
       </View>
     </SafeAreaView>
   );
 }
 
+// Responsive style calculations
+const getResponsiveStyles = () => {
+  const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+  const baseSize = Math.min(screenWidth, screenHeight);
+  
+  return StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+    },
+    header: {
+      paddingVertical: baseSize * 0.02, 
+      alignItems: 'center',
+    },
+    title: {
+      fontSize: baseSize * 0.04, 
+      fontWeight: '700',
+      color: '#333',
+    },
+    wheelContainer: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingBottom: screenHeight * 0.24, 
+      paddingTop: baseSize * 0.05, 
+      paddingEnd: baseSize * 0.70, 
+      
+    },
+  });
+};
+
 // Styles
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  header: {
-    paddingVertical: 16,
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 15,
-    fontWeight: '700',
-    color: '#333',
-  },
-  wheelContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding:20,
-    marginEnd:345,
-  },
-});
+const styles = getResponsiveStyles();

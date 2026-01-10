@@ -1,7 +1,13 @@
 import { router } from 'expo-router';
-import { Pressable, Text, View } from 'react-native';
+import { Dimensions, Pressable, Text, View } from 'react-native';
 import WheelofEmotions from './wheelofemotions';
+
+const { width } = Dimensions.get('window');
+
 export default function Modal(){
+    
+    const borderWidthPercentage = 1.0;
+    
     return(
         <View style={{ 
             flex: 1, 
@@ -12,13 +18,14 @@ export default function Modal(){
         }}>
            <View style={{
                 height: 56,
+                width: width * borderWidthPercentage, 
                 flexDirection: 'row',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                paddingHorizontal: 120,
+                paddingHorizontal: 16, 
                 borderBottomWidth: 2,
+                borderColor: '#e0e0e0',
                 borderBottomColor: '#e0e0e0',
-                
                 shadowColor: '#ffffff',
                 shadowOffset: { width: 0, height: 2 },
                 shadowOpacity: 0.2,
@@ -28,14 +35,16 @@ export default function Modal(){
                     fontWeight: '600'
                 }}> Wheel of Emotions</Text>
 
-
-                <Pressable onPress={() => router.back()}>
+                <Pressable 
+                    onPress={() => router.back()}
+                    style={{ padding: 8 }} // Add padding for better touch target
+                >
                     <Text style={{
-                        fontSize: 20, 
+                        fontSize: 24, 
                         color: '#000000',
-                        start: 90,
-                        
-                    }}>x</Text>
+                        fontWeight: '600',
+                        lineHeight: 24,
+                    }}>×</Text>
                 </Pressable>
            </View>
             <WheelofEmotions />
